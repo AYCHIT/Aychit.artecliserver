@@ -31,7 +31,9 @@
                 "bucket",
                 "-n",
                 "name",
-                "-u",
+                "--metadata.arch",
+                "x86",
+                "-u",                
                 "http://localhost"
             ]
         }
