@@ -1,12 +1,8 @@
+const path = require('path');
+if (process.argv[1].includes('snapshot')) process.argv[1] = process.argv[1].replace('arte.js', path.relative(process.cwd(), process.argv0));
 const yargs = require('yargs');
-const fs = require('fs-extra');
-const chalk = require('chalk');
 const util = require('util');
 const arteCli = require('./../lib/arte-cli');
-
-// arte put file.zip -b bucket -n name -u http://localhost/ --metadata.arch=x86 --auth xyz
-// arte get -b bucket -n name --version 1.0 --metadata.arch x86 --auth xyz
-// arte get -b bucket -n name --latest --metadata.arch=x86 --auth xyz
 
 const createCommandHandler = (func) => {
     return async (argv) => {
@@ -22,8 +18,10 @@ const createCommandHandler = (func) => {
     };
 };
 
-// TODO: Add examples
 yargs
+    .example('$0 put file.zip -b bucket1 -n the-artifact --metadata.arch=x86 -u http://localhost/', 'send file.zip as the-artifact with metadata arch=x86 to bucket1.')
+    .example('$0 get -b bucket1 -n the-artifact --latest --metadata.arch=x86 -u http://localhost/', 'get the latest artifact with the name the-artifact and metadata arch=x86 from bucket1.')
+    .example('$0 get -b bucket1 -n the-artifact --version 1.0 --metadata.arch=x86 -u http://localhost/', 'get version 1.0 of the artifact with name the-artifact and metadata arch=x86 from bucket1.')
     .command('put <path> [options]', 'put an artifact', (yargs) => {
         return yargs
             .positional('path', {
@@ -82,7 +80,7 @@ yargs
                 alias: 'name',
                 describe: 'artifact name',
             })
-            .option('m', {                
+            .option('m', {
                 alias: 'metadata',
                 describe: 'metadata',
             })
@@ -117,4 +115,5 @@ yargs
     })
     .help('h')
     .alias('h', 'help')
+    .wrap(yargs.terminalWidth())
     .argv;

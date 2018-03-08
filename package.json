@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "An CLI for the arte-server",
   "homepage": "https://github.com/conradoqg/arte-server",
-  "main": "bin/arte.js",
+  "main": "bin/arte",
   "bin": "bin/arte.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": "pkg . --out-path dist"
   },
   "license": "MIT",
   "engines": {
