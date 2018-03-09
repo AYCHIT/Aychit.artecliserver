@@ -20,8 +20,9 @@ const createCommandHandler = (func) => {
 
 yargs
     .example('$0 put file.zip -b bucket1 -n the-artifact --metadata.arch=x86 -u http://localhost/', 'send file.zip as the-artifact with metadata arch=x86 to bucket1.')
-    .example('$0 get -b bucket1 -n the-artifact --latest --metadata.arch=x86 -u http://localhost/', 'get the latest artifact with the name the-artifact and metadata arch=x86 from bucket1.')
+    .example('$0 get -b bucket1 -n the-artifact --version latest --metadata.arch=x86 -u http://localhost/', 'get the latest artifact with the name the-artifact and metadata arch=x86 from bucket1.')
     .example('$0 get -b bucket1 -n the-artifact --version 1.0 --metadata.arch=x86 -u http://localhost/', 'get version 1.0 of the artifact with name the-artifact and metadata arch=x86 from bucket1.')
+    .example('$0 get -b bucket1 -n the-artifact --version 1.0 --metadata.cutomVersion=latest -u http://localhost/', 'get latest customVersion of version 1.0 of the artifact with name the-artifact from bucket1.')
     .command('put <path> [options]', 'put an artifact', (yargs) => {
         return yargs
             .positional('path', {
