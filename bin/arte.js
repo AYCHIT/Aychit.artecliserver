@@ -12,8 +12,8 @@ const createCommandHandler = (func) => {
             process.exit(0);
         }
         catch (ex) {
-            console.error(ex.message);
-            if (argv.verbose) console.error(util.inspect(ex, { colors: chalk.supportsColor.level == 0 || !chalk.enabled ? false : true }));
+            if (ex.toPrint) console.error(ex.toPrint());
+            else console.error(ex);
             process.exit(1);
         }
     };
