@@ -56,9 +56,9 @@ yargs
                 description: 'Only display artifact data'
             })
             .version(false)
-            .demand(['u', 'b', 'n']);
+            .demand(['b', 'n']);
     }, createCommandHandler(async (argv) => {
-        const url = argv.url;
+        const url = argv.url || 'http://localhost:80';
         const bucket = argv.bucket;
         const name = argv.name;
         const version = argv.version;
@@ -98,9 +98,9 @@ yargs
                 description: 'Only display filename'
             })
             .version(false)
-            .demand(['u', 'b', 'n']);
+            .demand(['b', 'n']);
     }, createCommandHandler(async (argv) => {
-        const url = argv.url;
+        const url = argv.url || 'http://localhost:80';
         const bucket = argv.bucket;
         const name = argv.name;
         const version = argv.version;
