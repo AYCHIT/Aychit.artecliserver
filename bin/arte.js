@@ -118,3 +118,5 @@ yargs
     .alias('h', 'help')
     .wrap(yargs.terminalWidth())
     .argv;
+
+// TODO: Add JSON response

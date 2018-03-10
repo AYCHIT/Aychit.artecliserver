@@ -10,11 +10,13 @@
             "name": "Launch Cli Get Program",
             "program": "${workspaceFolder}\\bin\\arte.js",
             "args": [
-                "get",                
+                "get",
                 "-b",
                 "bucket",
                 "-n",
-                "namea",
+                "name",
+                "--metadata.arch",
+                "x86",
                 "-u",
                 "http://localhost"
             ]
@@ -25,7 +27,7 @@
             "name": "Launch Cli Put Program",
             "program": "${workspaceFolder}\\bin\\arte.js",
             "args": [
-                "put",                
+                "put",
                 "file.zip",
                 "-b",
                 "bucket",
@@ -33,7 +35,7 @@
                 "name",
                 "--metadata.arch",
                 "x86",
-                "-u",                
+                "-u",
                 "http://localhost"
             ]
         }
