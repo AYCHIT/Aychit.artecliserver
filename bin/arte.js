@@ -2,6 +2,7 @@ const path = require('path');
 if (process.argv[1].includes('snapshot')) process.argv[1] = process.argv[1].replace('arte.js', path.relative(process.cwd(), process.argv0));
 const yargs = require('yargs');
 const util = require('util');
+const chalk = require('chalk');
 const arteCli = require('./../lib/arte-cli');
 
 const createCommandHandler = (func) => {
@@ -12,7 +13,7 @@ const createCommandHandler = (func) => {
         }
         catch (ex) {
             console.error(ex.message);
-            if (argv.verbose) console.error(util.inspect(ex, { colors: true }));
+            if (argv.verbose) console.error(util.inspect(ex, { colors: chalk.supportsColor.level == 0 || !chalk.enabled ? false : true }));
             process.exit(1);
         }
     };
@@ -49,6 +50,11 @@ yargs
                 alias: 'metadata',
                 describe: 'metadata',
             })
+            .option('q', {
+                type: 'boolean',
+                alias: 'quiet',
+                description: 'Only display artifact data'
+            })
             .version(false)
             .demand(['u', 'b', 'n']);
     }, createCommandHandler(async (argv) => {
@@ -58,10 +64,11 @@ yargs
         const version = argv.version;
         const path = argv.path;
         let metadata = argv.metadata;
+        const quiet = argv.quiet;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.put(url, bucket, name, version, path, metadata);
+        return await arteCli.put(url, bucket, name, version, path, metadata, quiet);
     }))
     .command('get [options]', 'get an artifact', (yargs) => {
         return yargs
@@ -118,5 +125,3 @@ yargs
     .alias('h', 'help')
     .wrap(yargs.terminalWidth())
     .argv;
-
-// TODO: Add JSON response
