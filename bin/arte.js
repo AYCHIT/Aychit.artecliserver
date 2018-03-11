@@ -1,8 +1,6 @@
 const path = require('path');
 if (process.argv[1].includes('snapshot')) process.argv[1] = process.argv[1].replace('arte.js', path.relative(process.cwd(), process.argv0));
 const yargs = require('yargs');
-const util = require('util');
-const chalk = require('chalk');
 const arteCli = require('./../lib/arte-cli');
 
 const createCommandHandler = (func) => {
@@ -13,7 +11,7 @@ const createCommandHandler = (func) => {
         }
         catch (ex) {
             if (ex.toPrint) console.error(ex.toPrint());
-            else console.error(ex);
+            else console.error(ex.stack);
             process.exit(1);
         }
     };
@@ -110,6 +108,41 @@ yargs
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
         return await arteCli.get(url, bucket, name, version, metadata, quiet);
+    }))
+    .command('search [options]', 'search for artifacts', (yargs) => {
+        return yargs
+            .option('u', {
+                alias: 'url',
+                describe: 'arte server URL'
+            })
+            .option('v', {
+                alias: 'version',
+                describe: 'artifact version',
+            })
+            .option('b', {
+                alias: 'bucket',
+                describe: 'bucket name',
+            })
+            .option('n', {
+                alias: 'name',
+                describe: 'artifact name',
+            })
+            .option('m', {
+                alias: 'metadata',
+                describe: 'metadata',
+            })
+            .version(false)
+            .demand(['b', 'n']);
+    }, createCommandHandler(async (argv) => {
+        const url = argv.url || 'http://localhost:80';
+        const bucket = argv.bucket;
+        const name = argv.name;
+        const version = argv.version;
+        let metadata = argv.metadata;
+
+        if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
+
+        return await arteCli.search(url, bucket, name, version, metadata);
     }))
     .demandCommand(1)
     .version()

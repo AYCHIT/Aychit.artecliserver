@@ -16,6 +16,7 @@
   "dependencies": {
     "chalk": "^2.3.2",
     "es6-error": "^4.1.1",
+    "filesize": "^3.6.0",
     "fs-extra": "^5.0.0",
     "inquirer": "^5.1.0",
     "is-zip-file": "^1.0.2",
