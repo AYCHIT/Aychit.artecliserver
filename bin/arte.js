@@ -144,6 +144,47 @@ yargs
 
         return await arteCli.search(url, bucket, name, version, metadata);
     }))
+    .command('delete [options]', 'delete artifacts', (yargs) => {
+        return yargs
+            .option('u', {
+                alias: 'url',
+                describe: 'arte server URL'
+            })
+            .option('v', {
+                alias: 'version',
+                describe: 'artifact version',
+            })
+            .option('b', {
+                alias: 'bucket',
+                describe: 'bucket name',
+            })
+            .option('n', {
+                alias: 'name',
+                describe: 'artifact name',
+            })
+            .option('m', {
+                alias: 'metadata',
+                describe: 'metadata',
+            })
+            .option('f', {
+                alias: 'force',
+                describe: 'Force deletion (no asking done)',
+                default: false
+            })
+            .version(false)
+            .demand(['b', 'n']);
+    }, createCommandHandler(async (argv) => {
+        const url = argv.url || 'http://localhost:80';
+        const bucket = argv.bucket;
+        const name = argv.name;
+        const version = argv.version;
+        let metadata = argv.metadata;
+        const force = argv.force;
+
+        if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
+
+        return await arteCli.delete(url, bucket, name, version, metadata, force);
+    }))
     .demandCommand(1)
     .version()
     .option('verbose', {
