@@ -95,6 +95,11 @@ yargs
                 alias: 'quiet',
                 description: 'Only display filename'
             })
+            .option('f', {
+                alias: 'force',
+                describe: 'Force get (no asking is done)',
+                default: false
+            })
             .version(false)
             .demand(['b', 'n']);
     }, createCommandHandler(async (argv) => {
@@ -104,10 +109,11 @@ yargs
         const version = argv.version;
         let metadata = argv.metadata;
         const quiet = argv.quiet;
+        const force = argv.force;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.get(url, bucket, name, version, metadata, quiet);
+        return await arteCli.get(url, bucket, name, version, metadata, quiet, force);
     }))
     .command('search [options]', 'search for artifacts', (yargs) => {
         return yargs
@@ -168,7 +174,7 @@ yargs
             })
             .option('f', {
                 alias: 'force',
-                describe: 'Force deletion (no asking done)',
+                describe: 'Force deletion (no asking is done)',
                 default: false
             })
             .version(false)
