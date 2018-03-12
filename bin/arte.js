@@ -1,5 +1,5 @@
 const path = require('path');
-if (process.argv[1].includes('snapshot')) process.argv[1] = process.argv[1].replace('arte.js', path.relative(process.cwd(), process.argv0));
+if (process.argv[1].includes('snapshot')) process.argv[1] = process.argv[1].replace('arte.js', path.relative(process.cwd(), process.argv0)); // Workaround that shows the correct file path inside the pkg generated file
 const yargs = require('yargs');
 const arteCli = require('./../lib/arte-cli');
 
@@ -96,9 +96,9 @@ yargs
                 description: 'Only display filename'
             })
             .option('f', {
+                type: 'boolean',
                 alias: 'force',
-                describe: 'Force get (no asking is done)',
-                default: false
+                describe: 'Force get (no asking is done)'
             })
             .version(false)
             .demand(['b', 'n']);
@@ -173,9 +173,9 @@ yargs
                 describe: 'metadata',
             })
             .option('f', {
+                type: 'boolean',
                 alias: 'force',
-                describe: 'Force deletion (no asking is done)',
-                default: false
+                describe: 'Force deletion (no asking is done)'                
             })
             .version(false)
             .demand(['b', 'n']);
