@@ -95,11 +95,6 @@ yargs
                 alias: 'quiet',
                 description: 'Only display filename'
             })
-            .option('f', {
-                type: 'boolean',
-                alias: 'force',
-                describe: 'Force get (no asking is done)'
-            })
             .version(false)
             .demand(['b', 'n']);
     }, createCommandHandler(async (argv) => {
@@ -137,18 +132,23 @@ yargs
                 alias: 'metadata',
                 describe: 'metadata',
             })
-            .version(false)
-            .demand(['b', 'n']);
+            .option('e', {
+                type: 'boolean',
+                alias: 'exact-match',
+                describe: 'Bucket and name must be exact matches',
+            })
+            .version(false);
     }, createCommandHandler(async (argv) => {
         const url = argv.url || 'http://localhost:80';
         const bucket = argv.bucket;
         const name = argv.name;
         const version = argv.version;
+        const exactMatch = argv.exactMatch || false;
         let metadata = argv.metadata;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.search(url, bucket, name, version, metadata);
+        return await arteCli.search(url, bucket, name, version, metadata, exactMatch);
     }))
     .command('delete [options]', 'delete artifacts', (yargs) => {
         return yargs
@@ -175,7 +175,7 @@ yargs
             .option('f', {
                 type: 'boolean',
                 alias: 'force',
-                describe: 'Force deletion (no asking is done)'                
+                describe: 'Force deletion (no asking is done)'
             })
             .version(false)
             .demand(['b', 'n']);
@@ -205,3 +205,5 @@ yargs
     .alias('h', 'help')
     .wrap(yargs.terminalWidth())
     .argv;
+
+// TODO: Add feature that allows the creation of a bucket and its configuration
