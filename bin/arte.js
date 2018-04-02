@@ -26,7 +26,7 @@ yargs
         return yargs
             .positional('path', {
                 alias: 'folder',
-                describe: 'an .zip artifact or a path that will be compressed to .zip artifact'
+                describe: 'a .zip artifact'
             })
             .option('u', {
                 alias: 'url',
