@@ -2,7 +2,11 @@
   "name": "arte-cli",
   "version": "1.0.0",
   "description": "An CLI for the arte-server",
-  "homepage": "https://github.com/conradoqg/arte-server",
+  "homepage": "https://github.com/conradoqg/arte-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/conradoqg/arte-cli.git"
+  },
   "main": "bin/arte",
   "bin": "bin/arte.js",
   "scripts": {
