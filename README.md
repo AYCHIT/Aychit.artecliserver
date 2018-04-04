@@ -97,7 +97,7 @@ $ node ./bin/arte.js
 Binary
 ```bash
 # Download the binary (choose one of the available OSs, check the release page)
-$ curl https://github.com/conradoqg/arte-cli/releases/download/v1.0/arte-cli-linux -o arte
+$ curl https://github.com/conradoqg/arte-cli/releases/download/v1.0/arte-cli-linux -L -o arte
 
 # Run the binary
 $ ./arte search

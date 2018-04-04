@@ -30,27 +30,32 @@ yargs
             })
             .option('u', {
                 alias: 'url',
+                type: 'string',
                 describe: 'arte server URL'
             })
             .option('v', {
                 alias: 'version',
+                type: 'string',
                 describe: 'artifact version',
             })
             .option('b', {
                 alias: 'bucket',
+                type: 'string',
                 describe: 'bucket name',
             })
             .option('n', {
                 alias: 'name',
+                type: 'string',
                 describe: 'artifact name',
             })
             .option('m', {
                 alias: 'metadata',
+                type: 'string',
                 describe: 'metadata',
             })
-            .option('q', {
-                type: 'boolean',
+            .option('q', {                
                 alias: 'quiet',
+                type: 'boolean',
                 description: 'Only display artifact data'
             })
             .version(false)
@@ -72,27 +77,32 @@ yargs
         return yargs
             .option('u', {
                 alias: 'url',
+                type: 'string',
                 describe: 'arte server URL'
             })
             .option('v', {
                 alias: 'version',
+                type: 'string',
                 describe: 'artifact version',
             })
             .option('b', {
                 alias: 'bucket',
+                type: 'string',
                 describe: 'bucket name',
             })
             .option('n', {
                 alias: 'name',
+                type: 'string',
                 describe: 'artifact name',
             })
             .option('m', {
                 alias: 'metadata',
+                type: 'string',
                 describe: 'metadata',
             })
-            .option('q', {
-                type: 'boolean',
+            .option('q', {                
                 alias: 'quiet',
+                type: 'boolean',
                 description: 'Only display filename'
             })
             .version(false)
@@ -114,27 +124,32 @@ yargs
         return yargs
             .option('u', {
                 alias: 'url',
+                type: 'string',
                 describe: 'arte server URL'
             })
             .option('v', {
                 alias: 'version',
+                type: 'string',
                 describe: 'artifact version',
             })
             .option('b', {
                 alias: 'bucket',
+                type: 'string',
                 describe: 'bucket name',
             })
             .option('n', {
                 alias: 'name',
+                type: 'string',
                 describe: 'artifact name',
             })
             .option('m', {
                 alias: 'metadata',
+                type: 'string',
                 describe: 'metadata',
             })
-            .option('e', {
-                type: 'boolean',
+            .option('e', {                
                 alias: 'exact-match',
+                type: 'boolean',
                 describe: 'Bucket and name must be exact matches',
             })
             .version(false);
