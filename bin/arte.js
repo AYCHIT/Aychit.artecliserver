@@ -53,6 +53,11 @@ yargs
                 type: 'string',
                 describe: 'metadata',
             })
+            .option('t', {
+                alias: 'token',
+                type: 'string',
+                describe: 'authorization token'
+            })
             .option('q', {                
                 alias: 'quiet',
                 type: 'boolean',
@@ -67,11 +72,12 @@ yargs
         const version = argv.version;
         const path = argv.path;
         let metadata = argv.metadata;
+        const token = argv.token;
         const quiet = argv.quiet;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.put(url, bucket, name, version, path, metadata, quiet);
+        return await arteCli.put(url, bucket, name, version, path, metadata, token, quiet);
     }))
     .command('get [options]', 'get an artifact', (yargs) => {
         return yargs
@@ -100,6 +106,11 @@ yargs
                 type: 'string',
                 describe: 'metadata',
             })
+            .option('t', {
+                alias: 'token',
+                type: 'string',
+                describe: 'authorization token'
+            })
             .option('q', {                
                 alias: 'quiet',
                 type: 'boolean',
@@ -113,12 +124,12 @@ yargs
         const name = argv.name;
         const version = argv.version;
         let metadata = argv.metadata;
+        const token = argv.token;
         const quiet = argv.quiet;
-        const force = argv.force;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.get(url, bucket, name, version, metadata, quiet, force);
+        return await arteCli.get(url, bucket, name, version, metadata, token, quiet);
     }))
     .command('search [options]', 'search for artifacts', (yargs) => {
         return yargs
@@ -147,6 +158,11 @@ yargs
                 type: 'string',
                 describe: 'metadata',
             })
+            .option('t', {
+                alias: 'token',
+                type: 'string',
+                describe: 'authorization token'
+            })
             .option('e', {                
                 alias: 'exact-match',
                 type: 'boolean',
@@ -158,12 +174,13 @@ yargs
         const bucket = argv.bucket;
         const name = argv.name;
         const version = argv.version;
+        const token = argv.token;
         const exactMatch = argv.exactMatch || false;
         let metadata = argv.metadata;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.search(url, bucket, name, version, metadata, exactMatch);
+        return await arteCli.search(url, bucket, name, version, metadata, token, exactMatch);
     }))
     .command('delete [options]', 'delete artifacts', (yargs) => {
         return yargs
@@ -187,6 +204,11 @@ yargs
                 alias: 'metadata',
                 describe: 'metadata',
             })
+            .option('t', {
+                alias: 'token',
+                type: 'string',
+                describe: 'authorization token'
+            })
             .option('f', {
                 type: 'boolean',
                 alias: 'force',
@@ -200,11 +222,12 @@ yargs
         const name = argv.name;
         const version = argv.version;
         let metadata = argv.metadata;
+        const token = argv.token;
         const force = argv.force;
 
         if (metadata && typeof (metadata) == 'string') metadata = JSON.parse(metadata);
 
-        return await arteCli.delete(url, bucket, name, version, metadata, force);
+        return await arteCli.delete(url, bucket, name, version, metadata, token, force);
     }))
     .demandCommand(1)
     .version()
